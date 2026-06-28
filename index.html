@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANONYMOUSOSINT Central Intelligence Matrix Framework v5.0</title>
+    <style>
+        :root {
+            --bg-base: #010204;
+            --bg-surface: #05070a;
+            --bg-card: #0a0d13;
+            --accent-red: #ff2222;
+            --accent-red-dim: #880b0b;
+            --kali-green: #2ecc71;
+            --kali-blue: #3498db;
+            --kali-yellow: #f1c40f;
+            --text-main: #f1f2f6;
+            --text-muted: #747d8c;
+            --text-dark: #2f3542;
+            --border: #1e272e;
+            --border-heavy: #2f3542;
+            --terminal-bg: #020203;
+            --terminal-header: #0b0c10;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            font-size: 13px;
+        }
+
+        /* --- COLUMN 1: PLATFORM MAIN NAVIGATION --- */
+        .sidebar-left {
+            width: 270px;
+            background-color: var(--bg-base);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 0;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .brand-logo {
+            padding: 0 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            margin-bottom: 2rem;
+            color: #ffffff;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-logo span {
+            color: var(--accent-red);
+        }
+
+        .brand-logo .badge {
+            font-size: 0.65rem;
+            background-color: #111215;
+            color: #747d8c;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+
+        .nav-section-title {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            color: var(--text-dark);
+            font-weight: 800;
+            padding: 1.2rem 1.5rem 0.4rem 1.5rem;
+            letter-spacing: 0.8px;
+            user-select: none;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.65rem 1.5rem;
+            color: #616a75;
+            text-decoration: none;
+            transition: color 0.15s, background-color 0.15s;
+            cursor: pointer;
+            user-select: none;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.01);
+        }
+
+        .nav-link.active {
+            color: #ffffff;
+            background-color: rgba(255, 34, 34, 0.04);
+            border-left-color: var(--accent-red);
+            font-weight: 600;
+        }
+
+        .nav-link .bullet {
+            margin-right: 12px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: currentColor;
+            display: inline-block;
+            flex-shrink: 0;
+            transition: transform 0.15s;
+        }
+
+        .nav-link:hover .bullet {
+            transform: scale(1.2);
+        }
+
+        /* --- COLUMN 2: OPERATIONS BUFFER MANAGER --- */
+        .sidebar-middle {
+            width: 320px;
+            background-color: var(--bg-surface);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .panel-top-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            margin-bottom: 1.2rem;
+            padding: 0 0.2rem;
+            font-weight: 600;
+        }
+
+        .btn-new-chat {
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 1.2rem;
+            transition: background-color 0.15s, transform 0.15s;
+            text-align: center;
+        }
+
+        .btn-new-chat:hover {
+            background-color: #e1e2e6;
+            transform: translateY(-1px);
+        }
+
+        .toggle-container {
+            display: flex;
+            background-color: #040507;
+            padding: 4px;
+            border-radius: 50px;
+            margin-bottom: 1.2rem;
+            border: 1px solid var(--border);
+        }
+
+        .toggle-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.6rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.78rem;
+            font-weight: 600;
+            transition: background-color 0.15s, color 0.15s;
+        }
+
+        .toggle-btn.active {
+            background-color: #1c232e;
+            color: #ffffff;
+        }
+
+        .btn-new-project {
+            background: none;
+            border: 1px dashed var(--border-heavy);
+            color: var(--text-muted);
+            padding: 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.78rem;
+            width: 100%;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .list-container {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .list-header {
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            margin-bottom: 0.6rem;
+            padding-left: 0.2rem;
+            letter-spacing: 0.5px;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 0.7rem;
+            color: #ffffff;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.15s, border-color 0.15s;
+            margin-bottom: 0.4rem;
+            background-color: rgba(10, 13, 19, 0.4);
+            border: 1px solid transparent;
+        }
+
+        .list-item:hover {
+            background-color: rgba(30, 39, 46, 0.6);
+            border-color: var(--border-heavy);
+        }
+
+        .list-item.active {
+            background-color: rgba(30, 39, 46, 1);
+            border-color: var(--border);
+            box-shadow: inset 3px 0 0 var(--accent-red);
+        }
+
+        .list-item .folder-icon {
+            width: 8px;
+            height: 8px;
+            border: 1px solid var(--text-muted);
+            border-radius: 2px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .list-item.active .folder-icon {
+            border-color: var(--accent-red);
+            background-color: var(--accent-red);
+        }
+
+        .list-item .item-meta-container {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .list-item .item-title {
+            font-size: 0.85rem;
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .list-item .item-sub {
+            font-size: 0.72rem;
+            margin-top: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* --- COLUMN 3: PRIMARY MONITOR WORKSPACE CANVAS --- */
+        .main-workspace {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg-base);
+            position: relative;
+            min-width: 0;
+        }
+
+        .workspace-header {
+            height: 56px;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            user-select: none;
+            background-color: var(--bg-base);
+            z-index: 10;
+        }
+
+        .workspace-header-right {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .text-trigger {
+            color: #ffffff;
+            cursor: pointer;
+            font-weight: 600;
+            transition: color 0.15s;
+        }
+
+        .text-trigger:hover {
+            color: var(--accent-red);
+        }
+
+        .view-pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2.5rem 2rem;
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        .agent-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 6px;
+            background-color: rgba(10, 13, 19, 0.8);
+            border: 1px solid var(--border-heavy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: var(--accent-red);
+            margin-bottom: 1.2rem;
+            font-size: 1.3rem;
+            user-select: none;
+        }
+
+        .view-pane h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            letter-spacing: -1px;
+            color: #ffffff;
+        }
+
+        .view-pane p.desc {
+            color: var(--text-muted);
+            max-width: 640px;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* Input Controls Layout Configuration */
+        .search-container {
+            width: 100%;
+            max-width: 860px;
+            background-color: #07090d;
+            border: 1px solid var(--border-heavy);
+            border-radius: 50px;
+            padding: 6px 8px 6px 24px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+        }
+
+        .search-container input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: #ffffff;
+            outline: none;
+            font-size: 0.95rem;
+            padding-right: 15px;
+        }
+
+        .search-options-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-right: 8px;
+        }
+
+        .opt-select {
+            background-color: #12171f;
+            color: #c9d1d9;
+            padding: 0.55rem 1rem;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            border: 1px solid var(--border-heavy);
+            outline: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-submit {
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.15s, color 0.15s;
+            flex-shrink: 0;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--accent-red);
+            color: #ffffff;
+        }
+
+        /* --- IMMENSE TEXT SCROLLABLE TERMINAL ARCHITECTURE --- */
+        .kali-terminal {
+            width: 100%;
+            max-width: 960px;
+            background-color: var(--terminal-bg);
+            border: 1px solid var(--border-heavy);
+            border-radius: 10px;
+            text-align: left;
+            margin-bottom: 2rem;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.9);
+            display: none;
+            overflow: hidden;
+        }
+
+        .kali-header {
+            background-color: var(--terminal-header);
+            padding: 0.85rem 1.4rem;
+            border-bottom: 1px solid var(--border-heavy);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            user-select: none;
+        }
+
+        .kali-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .kali-dot {
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+        }
+
+        .kali-title {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            color: #8b949e;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .kali-body {
+            padding: 2rem;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.88rem;
+            color: #c9d1d9;
+            height: 450px;
+            overflow-y: auto;
+            line-height: 1.6;
+            background-color: #010203;
+        }
+
+        .prompt-line {
+            margin-bottom: 0.8rem;
+            border-bottom: 1px dashed rgba(255,255,255,0.02);
+            padding-bottom: 4px;
+        }
+
+        .prompt-line span.user { color: var(--kali-green); font-weight: bold; }
+        .prompt-line span.loc { color: var(--kali-blue); }
+        
+        .log-stream {
+            margin-top: 0.4rem;
+            color: #58a6ff;
+            white-space: pre-wrap;
+        }
+
+        .log-stream.success { color: var(--kali-green); }
+        .log-stream.warn { color: var(--kali-yellow); }
+        .log-stream.accent { color: #ff7b72; }
+        
+        .log-stream.output-data { 
+            color: #ffffff; 
+            background: #05070a; 
+            padding: 1.4rem; 
+            border-radius: 6px; 
+            border-left: 4px solid var(--kali-blue); 
+            margin: 1.2rem 0; 
+            font-size: 0.88rem;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.85);
+            border-top: 1px solid rgba(255,255,255,0.02);
+            border-right: 1px solid rgba(255,255,255,0.02);
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+        }
+
+        .telemetry-row {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 1.2rem;
+            font-size: 0.85rem;
+            user-select: none;
+        }
+
+        .telemetry-row span { color: var(--text-muted); }
+        .telemetry-row strong { color: #ffffff; }
+        
+        .marketing-pitch { 
+            color: var(--text-muted); 
+            font-size: 0.82rem; 
+            max-width: 600px; 
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #010203;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2f3542;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #747d8c;
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar-left" id="globalNav">
+        <div class="brand-logo">ANONYMOUS<span>OSINT</span> <span class="badge">v5.0</span></div>
+        
+        <div class="nav-section-title">intelligence</div>
+        <div class="nav-link" data-target="search"><span class="bullet"></span> Search Engine</div>
+        <div class="nav-link active" data-target="agent"><span class="bullet"></span> Anonymous Agent</div>
+        <div class="nav-link" data-target="leak-db"><span class="bullet"></span> Leak Database Researcher</div>
+        <div class="nav-link" data-target="machine"><span class="bullet"></span> Machine Correlator</div>
+        <div class="nav-link" data-target="monitor"><span class="bullet"></span> Surface Monitor</div>
+        <div class="nav-link" data-target="deep-search"><span class="bullet"></span> Deep Search Index</div>
+        <div class="nav-link" data-target="email"><span class="bullet"></span> Email Intelligence</div>
+
+        <div class="nav-section-title">platforms</div>
+        <div class="nav-link" data-target="discord"><span class="bullet"></span> Discord Profiler</div>
+        <div class="nav-link" data-target="roblox"><span class="bullet"></span> Roblox Mapping</div>
+        <div class="nav-link" data-target="tiktok"><span class="bullet"></span> TikTok Linker</div>
+        <div class="nav-link" data-target="github"><span class="bullet"></span> GitHub Footprinting</div>
+        <div class="nav-link" data-target="minecraft"><span class="bullet"></span> Minecraft Node Check</div>
+        <div class="nav-link" data-target="reddit"><span class="bullet"></span> Reddit Sub-Indexer</div>
+        <div class="nav-link" data-target="twitter"><span class="bullet"></span> X / Twitter Evaluator</div>
+        <div class="nav-link" data-target="instagram"><span class="bullet"></span> Instagram Footprint</div>
+
+        <div class="nav-section-title">tools</div>
+        <div class="nav-link" data-target="double-counter"><span class="bullet"></span> Double Counter Alt</div>
+        <div class="nav-link" data-target="geolocation"><span class="bullet"></span> Geolocation Vectors</div>
+        <div class="nav-link" data-target="crypto"><span class="bullet"></span> Crypto Ledger Trace</div>
+        <div class="nav-link" data-target="phone"><span class="bullet"></span> Phone Carrier Audit</div>
+        <div class="nav-link" data-target="network"><span class="bullet"></span> Subnet Infrastructure</div>
+    </aside>
+
+    <aside class="sidebar-middle">
+        <div class="panel-top-meta">
+            <span id="activeContextLabel">Agent Console</span>
+            <span id="allocatedIndexCount">1/25 Active</span>
+        </div>
+        
+        <button class="btn-new-chat" id="btnNewChatTop">+ New Operational Link</button>
+        
+        <div class="toggle-container">
+            <button class="toggle-btn active" id="toggleChats">Buffers</button>
+            <button class="toggle-btn" id="toggleProjects">Wrappers</button>
+        </div>
+
+        <button class="btn-new-project" id="btnNewProject">
+            <span>[+] Deploy Environment Wrapper</span>
+            <span style="opacity:0.3;">Ctrl+N</span>
+        </button>
+
+        <div class="list-header" id="listSectionTitle">Active Target Buffers</div>
+        <div class="list-container" id="contextListContainer">
+            <div class="list-item active" id="defaultBufferNode">
+                <span class="folder-icon"></span>
+                <div class="item-meta-container">
+                    <div class="item-title" id="sidePanelTracker">Awaiting Telemetry</div>
+                    <div class="item-sub" id="sidePanelStatus" style="color: var(--text-muted);">Idle Memory State</div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-workspace">
+        <div class="workspace-header">
+            <div id="topHeaderUser">Terminal Focus Node: root@anonymous_osint_v5</div>
+            <div class="workspace-header-right">
+                <span>Core Allocation Matrix: <strong style="color:#ffffff;">19,550 / 20,000</strong> credits</span>
+                <span class="text-trigger" id="headerNewChatTrigger">+ Wipe Workspace</span>
+            </div>
+        </div>
+
+        <div class="view-pane" id="coreViewWorkspacePane">
+            <div class="agent-avatar" id="moduleAvatarLabel">A</div>
+            <h1 id="paneTitle">Anonymous Agent</h1>
+            <p class="desc" id="paneDescription">An autonomous investigator. Cross-references breaches, stealer logs, and platforms to build comprehensive intelligence reports.</p>
+
+            <div class="search-container">
+                <input type="text" id="mainSearchInput" placeholder="Unmask an alias across the web..." autocomplete="off">
+                <div class="search-options-group">
+                    <select class="opt-select" id="depthSelectConfig">
+                        <option value="standard">Standard Sweep</option>
+                        <option value="deep">Deep Cross Grid</option>
+                        <option value="recursive">Recursive Cascade</option>
+                    </select>
+                    <select class="opt-select" id="prioritySelectConfig">
+                        <option value="high">High Priority</option>
+                        <option value="throttled">Throttled Safe</option>
+                    </select>
+                </div>
+                <button class="btn-submit" id="btnFireRecon">↑</button>
+            </div>
+
+            <div class="kali-terminal" id="kaliTerminalSystem">
+                <div class="kali-header">
+                    <div class="kali-buttons">
+                        <div class="kali-dot" style="background-color: #ff5f56; border: 1px solid #e0443e; cursor:pointer;" onclick="this.parentElement.parentElement.parentElement.style.display='none'"></div>
+                        <div class="kali-dot" style="background-color: #ffbd2e; border: 1px solid #dea123;"></div>
+                        <div class="kali-dot" style="background-color: #27c93f; border: 1px solid #1aab31;"></div>
+                    </div>
+                    <div class="kali-title" id="terminalTitleTab">kali@anonymousosint: ~</div>
+                    <div style="width: 40px;"></div>
+                </div>
+                <div class="kali-body" id="kaliConsoleBody"></div>
+            </div>
+
+            <div class="telemetry-row">
+                <div><span>Indices Linked:</span> <strong id="telemetryStatA">4.8B Records</strong></div>
+                <div><span>Node Latency:</span> <strong id="telemetryStatB">12ms Response</strong></div>
+            </div>
+            
+            <p class="marketing-pitch" id="footerMarketingPitchText">
+                <strong>Centralized High-Volume Extraction Gateway.</strong> Automatically maps architectural vectors, parses disparate digital registries, and tracks metadata parameters securely in direct operational cache memory loops.
+            </p>
+        </div>
+    </main>
+
+    <script>
+        // MASSIVE COMPREHENSIVE INTELLIGENCE PROFILE DATA MATRIX
+        const mockIntelDatabase = {
+            'search': {
+                'default': `[GLOBAL SEARCH REGISTRY SCAN VECTOR - DEFAULT QUERY REPORT]\n--------------------------------------------------------------------------------\nLookup Status: Execution Node Finalized Securely\nData Confidence Score: 94.18%\nAnalysis Path: Distributed Crawl System Indexer v5\nTarget String Parsed: General Input Matrix Alignment\n\nMatched Cross References Identified Across Target Data Partitions:\n  + Surface Indices Match: 38 Structural Elements Listed\n  + Private Registry Pools: Active correlation mapping link detected\n  + Known Historic Handles Linked to Target: [user_root, user_dev, default_alias]\n  + Regional Gateway Logs: Verified operational interactions via North American Routing Cores\n  + DNS Footprints Found: 2 Active Zone File records mapping to query criteria\n\nDevice Routing Fingerprint Summary:\n  - User Agent String Profile: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\n  - Screen Dimension Attributes: 1920x1080x24 TrueColor Standard Canvas\n  - Evaluated Language Profiles: en-US, en;q=0.9\n  - Dynamic WebRTC Leak Status: No active direct network leak endpoints visible\n\nExecution Memory Buffers clear. Safe sandbox environment fully maintained.`,
+                'admin': `[MATCH IDENTIFIED] Target Global Search Registry Pointer Vector\n--------------------------------------------------------------------------------\nEntity Target Handle: admin\nSystem Class Registry: Core Administrator Profile Trace\nRegistration Frame Date: 2018-03-12 11:42:04\nData Certainty Rating: 99.89% [Absolute Cryptographic Intersect Match]\n\nDirect Account Node Mappings:\n  - GitHub Node Instance: admin-dev (Account Pointer ID: 394102)\n  - Reddit Community Handle: u/admin_root\n  - Discord Platform ID Snowflake: 194820491823901\n  - Keybase Cryptographic Directory Verification: keybase.io/admin_dev_anchor\n  - StackOverflow Individual Profile Node: SO-ID-8819241\n\nNetwork Routing Profile History Log:\n  - Gateway Network Node IP Address: 184.22.109.5 (Comcast Infrastructure Routing Hub, Atlanta GA)\n  - Secondary Fallback IP Pointer: 92.41.221.14 (Vodafone United Kingdom Transport Layer)\n  - Proxy Intercept Logs: Clear correlation with Tor Exit Node Framework Signatures [Relay Node Alpha]\n  - Autonomous System Affiliation: AS7922 (Comcast Cable Communications, LLC)\n\nDocumented Breach Incident Vulnerabilities:\n  - Ledger Hardware Leak Array (2021 Data Pack): Cleartext cryptographic hash match identified\n  - Corporate Adobe Account Leak (2013 Frame): Account password hint string extracted: 'secret2013'\n  - AntiPublic Master List Integration: Matching plain-text record row found: [admin_vault@protonmail.com:adminPassword123!]\n  - RedLine Malware Stealer Log Extraction Matrix: Infected Host Machine "DESKTOP-CORE-ADM" compromised on 2024-02-14`,
+                'retro': `[MATCH IDENTIFIED] Target Global Search Registry Pointer Vector\n--------------------------------------------------------------------------------\nEntity Target Handle: retro\nSystem Class Registry: Standard Registered Alias Vector\nRegistration Frame Date: 2020-07-29 09:15:33\nData Certainty Rating: 94.12% [Heuristic Contextual Alignment Match]\n\nDirect Account Node Mappings:\n  - Roblox Platform Profile Link: RetroVibes (Unique ID Block: 59120491)\n  - TikTok Social Medium Handle: @retro_classic_caps\n  - Minecraft Core Universal UUID: e2819a32-11bc-4921-99ad-8410fb394012\n  - Twitch Streamer Profile Pointer: twitch.tv/retro_vibes_gaming\n  - Steam Gaming Core Platform ID: STEAM_0:1:59120491\n\nMasked Email Address Registrations:\n  - Recovery Path String: r****7@gmail.com\n  - Linked Verification Phone Pointer: +1 (***) ***-9214\n  - Alternative Verification Route: retro_vintage_caps@gmail.com\n\nSecurity Posture Operational Analysis:\n  - 2 Explicit Matches confirmed in RedLine Stealer Payload Logs (Scrape Extract Dated May 2024)\n  - Browser Cache Form History Leak: autofill passwords matching 'retroDesign2022!' extracted\n  - Device Host Environment Profile: Windows 11 Home Edition / User Account Context: retro-pc\\retro\n  - Host System Physical MAC Address: 4A:9E:2C:11:D3:FF`
+            },
+            'agent': {
+                'default': `[ANONYMOUS AUTONOMOUS RECONNAISSANCE SYSTEM PROFILE REPORT]\n--------------------------------------------------------------------------------\nTarget Vector Query Value: General Sweeper Execution Sequence\nRisk Analysis Metric Engine: 42% Total Exposure Rating Calculated\nTracking Registry ID Reference: AGENT-TRACE-88192-A\n\nCorrelation Trace Logs:\n  - Disparate interface handles matched across multiple surface networks\n  - Coincident structural timestamps match user online patterns perfectly\n  - Tracking signature index flags isolated successfully.\n  - Social Graph Mapping Matrix: Detected overlapping user friends across Roblox and Discord networks.\n  - Calculated Machine Intersect: Target exhibits strong proximity indicators with dynamic residential subnets.\n\nRecommended Next Action Sequence:\n  1. Initialize specific target lookup sequence via [Leak Database Researcher] module.\n  2. Parse discovered cleartext strings to verify password reuse vectors.\n  3. Map infrastructure node bindings inside [Machine Correlator Engine].`,
+                'admin': `[AGENT SYSTEM CORE ANALYSIS REPORT - TARGET: ADMIN]\n--------------------------------------------------------------------------------\nHigh Priority Target Footprint Correlated via Autonomous Heuristics.\nTarget Classification Layer: System Administrator / Software Engineer Profile\nCalculated Threat Profile Index: 88.5% Exposure Rating\n\ Identity Intersect Topology:\n  * Cross-referencing usernames reveals matching network traffic paths.\n  * Network endpoints tie directly to dynamic residential IP subnets.\n  * Associated breach datasets confirm historical credential leak reuse.\n  * Developer Asset Linkage: GitHub commit email signatures connect seamlessly with private ProtonMail endpoints.\n  * Active Network Node Matches: 184.22.109.5 confirmed tracking index intersection point.\n\nRecommended Pivot Actions: Execute [Leak Database Researcher] module to parse structural layout allocations.`,
+                'retro': `[AGENT SYSTEM CORE ANALYSIS REPORT - TARGET: RETRO]\n--------------------------------------------------------------------------------\nModerate Priority Target Footprint Correlated via Autonomous Heuristics.\nTarget Classification Layer: Casual Gamer / Media Content Creator Profile\nCalculated Threat Profile Index: 61.2% Exposure Rating\n\nIdentity Intersect Topology:\n  * Gaming identities link with historical content generation platforms.\n  * Inferred user metadata indicates a high alignment with software development tools.\n  * Redline stealer log validation confirms session vulnerability window.\n  * Network Timing Distribution: Active online timestamps correspond to Eastern Standard Time Zone (EST).\n  * Digital Footprint Overlaps: High confidence correlation established between Steam ID profile and Roblox account index.`
+            },
+            'leak-db': {
+                'default': `[LEAK DATABASE RESEARCHER EXTRACTION SUITE - METADATA DUMP]\n--------------------------------------------------------------------------------\nData Scan Target Frame: Broad Repository Registry Search Block\nEvaluated Archives Checked: Collection 1-5, COMB, Snails Leak, Redline Logs\nTotal Search Field Horizon: 14,290,412,041 Total Indexed Table Rows\n\nFound Entry Structural Logs:\n  1. Compilation of Many Breaches Archive Set (COMB-22)\n     - Status: Active match found against parameter indices\n  2. Decrypted Corporate Forum Leak Pack (2020)\n     - Exposed Fields: Username, Email String, Region Token, Hashed Credentials\n  3. Legacy Platform Gaming Dump Set (2019 Archive)\n     - Encrypted Value Structure: MD5 Cryptographic Hash Lineage Resolved\n  4. Redline Stealer System Log Parsing Array\n     - Device Host Name Target Fingerprint: DESKTOP-OP9421A`,
+                'admin': `[LEAK DATABASE IDENTIFIED EXTRACTION - TARGET: ADMIN]\n--------------------------------------------------------------------------------\nDatabase Query Match Vector Found inside Central Decrypted Archives.\n\nBreach Data Segment Entry:\n  - Core Source DB: Canva Platform Leak (2019 Framework Deployment)\n    * Registered User Handle: admin_dev_account\n    * Associated Email Root: admin_vault@protonmail.com\n    * Cryptographic Hash Output: SHA-256 ($2a$10$XzR9p2YmK9Bv...)\n\nSecondary Database Data Segment Entry:\n  - Core Source DB: Anti-Public Leak Dataset Compilation v4\n    * Password Match Array String: adminPassword123!\n    * Linked Registration IP Address: 184.22.109.5\n    * Historical Location State Parameters: Atlanta, Georgia, USA\n\nMalware Infection Extract Record:\n  - Vector Platform: RedLine Infostealer Log Match`,
+                'retro': `[LEAK DATABASE IDENTIFIED EXTRACTION - TARGET: RETRO]\n--------------------------------------------------------------------------------\nDatabase Query Match Vector Found inside Central Decrypted Archives.\n\nBreach Data Segment Entry:\n  - Core Source DB: Roblox Unofficial Fan Hub Leak (2022 Breach)\n    * Registered User Handle: RetroVibes\n    * Associated Email Root: retro_vintage_caps@gmail.com\n    * Password Extraction Hint Match: retroDesign2022!`
+            }
+        };
+
+        // UI State Variables
+        let activeModule = 'agent';
+
+        // Elements
+        const navLinks = document.querySelectorAll('.nav-link');
+        const paneTitle = document.getElementById('paneTitle');
+        const paneDescription = document.getElementById('paneDescription');
+        const moduleAvatarLabel = document.getElementById('moduleAvatarLabel');
+        const mainSearchInput = document.getElementById('mainSearchInput');
+        const btnFireRecon = document.getElementById('btnFireRecon');
+        const kaliTerminalSystem = document.getElementById('kaliTerminalSystem');
+        const kaliConsoleBody = document.getElementById('kaliConsoleBody');
+        const terminalTitleTab = document.getElementById('terminalTitleTab');
+        const sidePanelTracker = document.getElementById('sidePanelTracker');
+        const sidePanelStatus = document.getElementById('sidePanelStatus');
+        const activeContextLabel = document.getElementById('activeContextLabel');
+
+        // Module Configurations Mapping
+        const moduleMeta = {
+            'search': { title: 'Search Engine', avatar: 'S', desc: 'Centralized lookup engine for unmasking surface vectors, tracking open domain directories, and cross-indexing web metadata handles.' },
+            'agent': { title: 'Anonymous Agent', avatar: 'A', desc: 'An autonomous investigator. Cross-references breaches, stealer logs, and platforms to build comprehensive intelligence reports.' },
+            'leak-db': { title: 'Leak Database Researcher', avatar: 'L', desc: 'Direct access node to look up compromised database credentials, cleartext recovery logs, and distributed threat actor data maps.' },
+            'machine': { title: 'Machine Correlator', avatar: 'M', desc: 'Correlates distributed hardware markers, matching session footprints, and dynamic routing architectures.' },
+            'monitor': { title: 'Surface Monitor', avatar: 'M', desc: 'Real-time structural listener charting public platform updates, forum tags, and threat feeds.' },
+            'deep-search': { title: 'Deep Search Index', avatar: 'D', desc: 'Advanced recursive lookup tracking unlisted archives, paste sites, and historical page iterations.' },
+            'email': { title: 'Email Intelligence', avatar: 'E', desc: 'Extracts domain registration anchors, validates mail delivery nodes, and discovers account linkages.' },
+            'discord': { title: 'Discord Profiler', avatar: 'D', desc: 'Translates Snowflake user tokens into profile badges, created histories, and linked visual avatars.' },
+            'roblox': { title: 'Roblox Mapping', avatar: 'R', desc: 'Traces architectural nodes inside asset catalogs, game badges, and cross-platform identity pointers.' },
+            'tiktok': { title: 'TikTok Linker', avatar: 'T', desc: 'Crawls dynamic video metadata hashes to link shadow user accounts and track audio correlation signatures.' },
+            'github': { title: 'GitHub Footprinting', avatar: 'G', desc: 'Scrapes public commit metadata headers to capture true developer email vectors and SSH public keys.' },
+            'minecraft': { title: 'Minecraft Node Check', avatar: 'M', desc: 'Resolves server connection patterns, historical UUID handle listings, and alternative account joins.' },
+            'reddit': { title: 'Reddit Sub-Indexer', avatar: 'R', desc: 'Analyzes submission distributions, stylistic speech patterns, and historical community associations.' },
+            'twitter': { title: 'X / Twitter Evaluator', avatar: 'X', desc: 'Evaluates interaction matrices, automated bot signatures, and geolocated media uploads.' },
+            'instagram': { title: 'Instagram Footprint', avatar: 'I', desc: 'Extracts location anchors from image payloads and tracks historical profile updates.' },
+            'double-counter': { title: 'Double Counter Alt', avatar: 'C', desc: 'Bypasses standard entry gates to map hidden alternative account lineages sharing host fingerprints.' },
+            'geolocation': { title: 'Geolocation Vectors', avatar: 'G', desc: 'Computes physical location boundaries utilizing public IP networks and cell network signals.' },
+            'crypto': { title: 'Crypto Ledger Trace', avatar: 'C', desc: 'Monitors public transaction hashes and follows coin mixers to link real wallet ownership.' },
+            'phone': { title: 'Phone Carrier Audit', avatar: 'P', desc: 'Interrogates global signaling registries to map cellular network vectors and true device carrier nodes.' },
+            'network': { title: 'Subnet Infrastructure', avatar: 'N', desc: 'Performs non-intrusive reverse lookup evaluations across distributed cloud networks.' }
+        };
+
+        // Navigation Switch Handler
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                
+                activeModule = link.getAttribute('data-target');
+                const meta = moduleMeta[activeModule] || { title: link.textContent.trim(), avatar: 'O', desc: 'Custom framework module asset pipeline.' };
+                
+                paneTitle.textContent = meta.title;
+                paneDescription.textContent = meta.desc;
+                moduleAvatarLabel.textContent = meta.avatar;
+                activeContextLabel.textContent = `${meta.title} Node`;
+                
+                // Keep input field placeholder clean and accurate
+                mainSearchInput.placeholder = `Query target via ${meta.title.toLowerCase()}...`;
+            });
+        });
+
+        // Search Trigger Logic
+        function executeReconQuery() {
+            const queryRaw = mainSearchInput.value.trim();
+            if (!queryRaw) return;
+
+            const queryLower = queryRaw.toLowerCase();
+            let queryType = 'default';
+            if (queryLower === 'admin' || queryLower === 'retro') {
+                queryType = queryLower;
+            }
+
+            // Fallback content handler if precise modules lack deep logs
+            const activeModuleDb = mockIntelDatabase[activeModule] || mockIntelDatabase['search'];
+            const logContent = activeModuleDb[queryType] || activeModuleDb['default'];
+
+            // UI feedback changes
+            sidePanelTracker.textContent = queryRaw.toUpperCase();
+            sidePanelStatus.textContent = "Telemetry Cached Loop";
+            terminalTitleTab.textContent = `kali@anonymousosint: ~/${activeModule}`;
+            
+            // Build the terminal output stream smoothly
+            kaliTerminalSystem.style.display = 'block';
+            kaliConsoleBody.innerHTML = `
+                <div class="prompt-line">
+                    <span class="user">root@anonymous_osint_v5</span>:<span class="loc">~/${activeModule}</span># recon-sweep --target "${queryRaw}" --depth "${document.getElementById('depthSelectConfig').value}"
+                </div>
+                <div class="log-stream">[!] Initializing dynamic proxy routing rings...</div>
+                <div class="log-stream success">[✓] Core network routing link initialized at 12ms.</div>
+                <div class="log-stream warn">[!] Querying architectural registries for "${queryRaw}"</div>
+                <div class="log-stream output-data">${logContent}</div>
+                <div class="prompt-line">
+                    <span class="user">root@anonymous_osint_v5</span>:<span class="loc">~/${activeModule}</span># <span style="animation: blink 1s step-end infinite;">_</span>
+                </div>
+            `;
+            
+            // Scroll right into the layout update
+            kaliConsoleBody.scrollTop = kaliConsoleBody.scrollHeight;
+        }
+
+        btnFireRecon.addEventListener('click', executeReconQuery);
+        mainSearchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') executeReconQuery();
+        });
+
+        // Wipe Workspace
+        document.getElementById('headerNewChatTrigger').addEventListener('click', () => {
+            mainSearchInput.value = '';
+            kaliConsoleBody.innerHTML = '';
+            kaliTerminalSystem.style.display = 'none';
+            sidePanelTracker.textContent = 'Awaiting Telemetry';
+            sidePanelStatus.textContent = 'Idle Memory State';
+        });
+
+        // Operational links
+        document.getElementById('btnNewChatTop').addEventListener('click', () => {
+            alert("New Operational Link initialized safely inside isolated memory cache layers.");
+        });
+    </script>
+</body>
+</html>
